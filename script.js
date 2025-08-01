@@ -1,4 +1,3 @@
-
 function startChat() {
-    alert("Il chatbot verrà attivato nella versione completa.");
+    alert("Chat non disponibile in questa demo.");
 }
