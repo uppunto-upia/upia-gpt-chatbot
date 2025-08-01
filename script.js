@@ -6,19 +6,26 @@ const sendBtn = document.getElementById('send-btn');
 let history = [];
 
 async function sendMessageToGPT(message) {
-  const response = await fetch('/api/chat', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ message, history })
-  });
+  try {
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ message, history })
+    });
 
-  const data = await response.json();
-  history.push({ role: 'user', content: message });
-  history.push({ role: 'assistant', content: data.reply });
+    const data = await response.json();
+    history.push({ role: 'user', content: message });
+    history.push({ role: 'assistant', content: data.reply });
 
-  return data.reply;
+    console.log("Risposta ricevuta:", data.reply);
+
+    return data.reply;
+  } catch (error) {
+    console.error("Errore durante la chiamata API:", error);
+    return "⚠️ Errore durante la comunicazione con il server.";
+  }
 }
 
 function appendMessage(role, content) {
