@@ -2,18 +2,19 @@
     max-width: 600px;
     margin: 50px auto;
     text-align: center;
-    font-family: Arial, sans-serif;
 }
 .logo {
-    max-width: 100px;
+    max-width: 150px;
 }
 #chat-container {
-    border: 1px solid #ccc;
-    padding: 10px;
     height: 300px;
     overflow-y: auto;
-    margin-top: 20px;
-    text-align: left;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 20px 0;
+}
+.message {
+    margin-bottom: 10px;
 }
 .message.user {
     text-align: right;
@@ -22,11 +23,4 @@
 .message.assistant {
     text-align: left;
     color: green;
-}
-#user-input {
-    width: 70%;
-    padding: 10px;
-}
-#send-btn {
-    padding: 10px 20px;
 }

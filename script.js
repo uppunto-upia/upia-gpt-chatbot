@@ -5,15 +5,17 @@ const sendBtn = document.getElementById('send-btn');
 let history = [];
 
 async function sendMessageToGPT(message) {
-  const response = await fetch('/api/chat', {
+  const response = await fetch('/api/chat/chat', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ message, history })
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message })
   });
 
   const data = await response.json();
+  if (data.error) {
+    appendMessage('assistant', 'Errore: ' + data.error);
+    return;
+  }
   history.push({ role: 'user', content: message });
   history.push({ role: 'assistant', content: data.reply });
 
@@ -31,10 +33,8 @@ function appendMessage(role, content) {
 sendBtn.addEventListener('click', async () => {
   const userMessage = inputField.value.trim();
   if (!userMessage) return;
-
   appendMessage('user', userMessage);
   inputField.value = '';
-
   const reply = await sendMessageToGPT(userMessage);
   appendMessage('assistant', reply);
 });
